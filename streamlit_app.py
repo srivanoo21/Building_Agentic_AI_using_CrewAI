@@ -1,3 +1,4 @@
+# Importing Dependencies
 from crewai import Agent, Crew, LLM, Task
 from crewai_tools import SerperDevTool
 from dotenv import load_dotenv
@@ -5,9 +6,11 @@ import streamlit as st
 
 load_dotenv()
 
+
+## Setting Up Streamlit UI
+
 # Streamlit page config
 st.set_page_config(page_title="Content Researcher & Writer", page_icon="🍎", layout="wide")
-
 # Title and description
 st.title("🍏 Content Researcher & Writer, powered by CrewAI")
 st.markdown("Generate blog posts about any topic using AI agents.")
@@ -44,7 +47,21 @@ with st.sidebar:
                     5. Download the result as a markdown file
                     """)
 
+# Generating Content with CrewAI
 def generate_content(topic):
+    """
+    Generates AI-powered content based on the given topic.
+
+    This function initializes the LLM model, sets up AI agents for research and content writing, 
+    assigns them specific tasks, and executes them using CrewAI.
+
+    Parameters:
+    topic (str): The subject for which the content should be generated.
+
+    Returns:
+    str: The generated blog post in markdown format.
+    """
+    
     # LLM
     llm = LLM(model="gpt-4")
 
@@ -144,6 +161,7 @@ def generate_content(topic):
 
 
 # Main content area
+# This section handles the main content generation process. When the "Generate Content" button is clicked, it #triggers the generate_content function, displays a loading spinner, and presents the generated text with a download option while handling potential errors.
 if generate_button:
     with st.spinner("Generating content... This may take a moment."):
         try:
